@@ -9,15 +9,13 @@ describe('HelloWorld.vue', () => {
     });
     expect(wrapper.text()).toMatch(msg);
   });
-  it('checks rotateText method works properly as it designed', async () => {
+  test('checks rotateText method works properly as it designed', async () => {
     const wrapper = mount(HelloWorld);
     await wrapper.find('input[type="text"]').setValue('projectlion');
     await wrapper.find('button').trigger('click');
     expect(wrapper.find('p').text()).toBe('rojectlionp');
   });
-  /* IME 이슈는 자 / 모음이 합성되면서 화면에 출력되지 않는 것 */
-  /* 'setValue 상에 자 모음을 char로 적용시켜서 테스트할 수 있을까? 'ㄱ ㅏ ㄴㅡㅇ' => '가능' */
-  it('checks rotateText method handles Korean', async () => {
+  test('checks rotateText method handles IME Issue', async () => {
     const wrapper = mount(HelloWorld);
     await wrapper.find('input[type="text"]').setValue('안녕하세요');
     await wrapper.find('button').trigger('click');
