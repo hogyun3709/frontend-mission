@@ -56,10 +56,30 @@
           @click="setDiscount"
           data-test="apply-discount"
         >
-          10% 할인 적용
+          {{ this.sellerData.discountRate }}% 할인 적용
         </button>
       </div>
     </div>
+    <section class="hero">
+      <h4
+        class="ml-4 has-text-left is-size-4-mobile"
+        data-test="product-description-title"
+      >
+        상품정보
+      </h4>
+      <p
+        class="ml-4 has-text-left is-size-6-mobile has-text-weight-bold"
+        data-test="product-detail-description"
+      >
+        {{ this.sellerData.productDetail.description }}
+      </p>
+      <figure class="image is-square ml-4 mr-4 mobile">
+        <img
+          data-test="product-detail-image"
+          :src="this.sellerData.productDetail.image"
+        />
+      </figure>
+    </section>
   </div>
 </template>
 
@@ -79,6 +99,10 @@ export default {
         productPrice: 200000,
         isDiscount: true,
         discountRate: 10,
+        productDetail: {
+          description: '체형에 관계없이 누구에게나 맞는 수트!',
+          image: 'https://picsum.photos/200/300',
+        },
       },
     };
   },

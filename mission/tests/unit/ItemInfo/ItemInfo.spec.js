@@ -9,7 +9,7 @@ describe('ItemInfoPage', () => {
   });
 
   /* should check not only element but data */
-  it('renders seller product image element on DOM', async () => {
+  it('renders seller product image element on DOM', () => {
     expect(wrapper.get('img[data-test="product-image"]').exists()).toBe(true);
   });
   /* image style height 과 width 의 비율을 1:1 로 확인 할수있는 테스트 코드 작성법? */
@@ -38,6 +38,7 @@ describe('ItemInfoPage', () => {
     expect(wrapper.find('button[data-test="apply-discount"]').exists()).toBe(true);
   });
   /* Mustache syntax의 값만 테스트하는 법? */
+  /* 할인율이 달라지면 확인할수 있는 테스트 케이스 */
   it('checks discount button toggle works', async () => {
     const nonDiscountPrice = '200,000원';
     const discountPrice = '180,000원';
@@ -45,5 +46,10 @@ describe('ItemInfoPage', () => {
     expect(wrapper.get('span[data-test="original-price"]').text()).toBe(nonDiscountPrice);
     await wrapper.get('button[data-test="apply-discount"]').trigger('click');
     expect(wrapper.get('span[data-test="discount-price"]').text()).toBe(discountPrice);
+  });
+  it('renders follwoing elements: product deatil description and detail image', () => {
+    expect(wrapper.find('h4[data-test="product-description-title"]').exists()).toBe(true);
+    expect(wrapper.find('p[data-test="product-detail-description"]').exists()).toBe(true);
+    expect(wrapper.find('img[data-test="product-detail-image"]').exists()).toBe(true);
   });
 });
