@@ -98,7 +98,7 @@ export default {
         productName: '핏이 좋은 수트',
         productPrice: 200000,
         isDiscount: true,
-        discountRate: 10,
+        discountRate: 30,
         productDetail: {
           description: '체형에 관계없이 누구에게나 맞는 수트!',
           image: 'https://picsum.photos/200/300',
@@ -117,7 +117,7 @@ export default {
       const finalPrice =
         // eslint-disable-next-line operator-linebreak
         this.sellerData.productPrice -
-        this.sellerData.productPrice / this.sellerData.discountRate;
+        this.sellerData.productPrice * (this.sellerData.discountRate / 100);
       return finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     noDiscountPrice() {
