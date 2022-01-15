@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <figure class="image is-square">
+    <figure class="image is-square mobile">
       <img data-test="product-image" :src="sellerData.productImg" />
     </figure>
     <div class="columns mt-1 mx-1 is-mobile">
@@ -24,6 +24,42 @@
       </div>
       <div class="column is-one-fifth"></div>
     </div>
+    <div class="columns mt-2 mx-2 is-mobile">
+      <div class="column is-three-fifths">
+        <h4 class="has-text-left is-size-3-mobile" data-test="product-name">
+          {{ sellerData.productName }}
+        </h4>
+        <div
+          v-if="sellerData.isDiscount == true"
+          class="has-text-left is-size-4-mobile"
+        >
+          <span
+            class="has-text-weight-bold has-text-danger"
+            data-test="discount-rate"
+          >
+            {{ sellerData.discountRate }}%
+          </span>
+          <span class="has-text-weight-bold" data-test="discount-price">
+            {{ discountPrice }}원
+          </span>
+          <span class="text-deco is-size-5-mobile" data-test="original-price">
+            {{ noDiscountPrice }}원
+          </span>
+        </div>
+        <div v-else class="has-text-left has-text-weight-bold is-size-4-mobile">
+          <span data-test="original-price"> {{ noDiscountPrice }}원 </span>
+        </div>
+      </div>
+      <div class="is-one-fifth">
+        <button
+          class="mt-5 mb-5 button is-primary"
+          @click="setDiscount"
+          data-test="apply-discount"
+        >
+          10% 할인 적용
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,13 +75,38 @@ export default {
         profilePic: 'https://picsum.photos/200/300',
         marketName: '대한양복',
         tags: ['#남성', '#수트'],
+        productName: '핏이 좋은 수트',
+        productPrice: 200000,
+        isDiscount: true,
+        discountRate: 10,
       },
     };
   },
-  methods: {},
-  computed: {},
+  methods: {
+    setDiscount() {
+      this.sellerData.isDiscount = !this.sellerData.isDiscount;
+    },
+  },
+  computed: {
+    discountPrice() {
+      // eslint-disable-next-line operator-linebreak
+      const finalPrice =
+        // eslint-disable-next-line operator-linebreak
+        this.sellerData.productPrice -
+        this.sellerData.productPrice / this.sellerData.discountRate;
+      return finalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+    noDiscountPrice() {
+      return this.sellerData.productPrice
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+  },
 };
 </script>
 
 <style scoped>
+.text-deco {
+  text-decoration-line: line-through;
+}
 </style>
