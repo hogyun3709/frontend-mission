@@ -52,4 +52,12 @@ describe('ItemInfoPage', () => {
     expect(wrapper.find('p[data-test="product-detail-description"]').exists()).toBe(true);
     expect(wrapper.find('img[data-test="product-detail-image"]').exists()).toBe(true);
   });
+  it('renders following review elements: title, customer name, customer timestamp, content title, content description and customer image', () => {
+    expect(wrapper.find('h4[data-test="review-title"]').exists()).toBe(true);
+    expect(wrapper.find('span[data-test="review-customer-name"]').exists()).toBe(true);
+    expect(wrapper.find('span[data-test="review-customer-timestamp"]').exists()).toBe(true);
+    expect(wrapper.find('span[data-test="review-content-title"]').exists()).toBe(true);
+    expect(wrapper.find('span[data-test="review-content-description"]').exists()).toBe(true);
+    expect(wrapper.find('img[data-test="review-customer-image"]'));
+  });
 });

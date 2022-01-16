@@ -50,13 +50,13 @@
           <span data-test="original-price"> {{ noDiscountPrice }}원 </span>
         </div>
       </div>
-      <div class="is-one-fifth">
+      <div class="column is-one-fifth">
         <button
           class="mt-5 mb-5 button is-primary"
           @click="setDiscount"
           data-test="apply-discount"
         >
-          {{ this.sellerData.discountRate }}% 할인 적용
+          {{ sellerData.discountRate }}% 할인 적용
         </button>
       </div>
     </div>
@@ -71,15 +71,54 @@
         class="ml-4 has-text-left is-size-6-mobile has-text-weight-bold"
         data-test="product-detail-description"
       >
-        {{ this.sellerData.productDetail.description }}
+        {{ sellerData.productDetail.description }}
       </p>
       <figure class="image is-square ml-4 mr-4 mobile">
         <img
           data-test="product-detail-image"
-          :src="this.sellerData.productDetail.image"
+          :src="sellerData.productDetail.image"
         />
       </figure>
     </section>
+    <div class="columns mt-2 mx-2 is-mobile">
+      <div class="column is-three-fifths">
+        <h4 class="has-text-left is-size-4-mobile" data-test="review-title">
+          리뷰
+        </h4>
+        <div class="has-text-left is-size-6-mobile">
+          <p>
+            <span class="has-text-weight-bold" data-test="review-customer-name">
+              {{ customerReviewData[0].customerName }}
+            </span>
+            <span
+              class="ml-1 is-size-7-mobile"
+              data-test="review-customer-timestamp"
+            >
+              {{ customerReviewData.timeStamp }}
+            </span>
+          </p>
+          <span
+            class="has-text-weight-bold is-size-4-mobile"
+            data-test="review-content-title"
+          >
+            {{ customerReviewData[0].title }}
+          </span>
+        </div>
+        <div class="has-text-left is-size-6-mobile">
+          <span data-test="review-content-description">
+            {{ customerReviewData[0].description }}</span
+          >
+        </div>
+      </div>
+      <div class="column is-two-fifth">
+        <figure class="image is-square mobile">
+          <img
+            data-test="review-customer-image"
+            :src="customerReviewData[0].image"
+          />
+        </figure>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -98,13 +137,36 @@ export default {
         productName: '핏이 좋은 수트',
         productPrice: 200000,
         isDiscount: true,
-        discountRate: 30,
+        discountRate: 10,
         productDetail: {
           description: '체형에 관계없이 누구에게나 맞는 수트!',
           image: 'https://picsum.photos/200/300',
         },
       },
+      customerReviewData: [
+        {
+          customerName: 'spiderman',
+          timeStamp: '',
+          title: '만족해요',
+          description: '핏이 아주 잘 맞습니다. 대만족!',
+          image: 'https://picsum.photos/200/300',
+        },
+        {
+          customerName: 'ironman',
+          timeStamp: '',
+        },
+      ],
     };
+  },
+  mounted() {
+    /* Format Review Data */
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    this.customerReviewData.timeStamp = `${year}. ${month}. ${day}`;
+    /* encrypt customer name on review - 추후구현 */
+    // this.customerReviewData.customerName.replace(/\/gi, "*");
   },
   methods: {
     setDiscount() {
