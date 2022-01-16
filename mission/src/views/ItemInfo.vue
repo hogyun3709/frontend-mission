@@ -80,7 +80,7 @@
         />
       </figure>
     </section>
-    <div class="columns mt-2 mx-2 is-mobile">
+    <div class="columns mt-2 mb-6 mx-2 is-mobile">
       <div class="column is-three-fifths">
         <h4 class="has-text-left is-size-4-mobile" data-test="review-title">
           리뷰
@@ -119,6 +119,18 @@
         </figure>
       </div>
     </div>
+  </div>
+  <div class="navbar is-fixed-bottom">
+    <button
+      v-if="sellerData.isDiscount == true"
+      class="button mt-1"
+      data-test="purchase-button-discount"
+    >
+      {{ discountPrice }}원 구매
+    </button>
+    <button v-else class="button mt-1" data-test="purchase-button-non-discount">
+      {{ noDiscountPrice }}원 구매
+    </button>
   </div>
 </template>
 

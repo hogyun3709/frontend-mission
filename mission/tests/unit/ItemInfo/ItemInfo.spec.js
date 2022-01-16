@@ -60,4 +60,9 @@ describe('ItemInfoPage', () => {
     expect(wrapper.find('span[data-test="review-content-description"]').exists()).toBe(true);
     expect(wrapper.find('img[data-test="review-customer-image"]'));
   });
+  it('renders following purchase button: discount and non-discount price', async () => {
+    expect(wrapper.find('button[data-test="purchase-button-discount"]').exists()).toBe(true);
+    await wrapper.get('button[data-test="apply-discount"]').trigger('click');
+    expect(wrapper.find('button[data-test="purchase-button-non-discount"]').exists()).toBe(true);
+  });
 });
