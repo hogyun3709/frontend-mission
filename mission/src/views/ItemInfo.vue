@@ -6,7 +6,7 @@
     <div class="columns mt-1 mx-1 is-mobile">
       <div class="column is-one-fifth">
         <figure class="image is-square">
-          <!-- image 파일에 대한 async loading 이 필요 -->
+          <!-- image 를 local이 아닌 http 통신으로 받아올때 생기는 latency에 대한 loading 이 필요할수도 -->
           <img
             class="is-rounded"
             data-test="profile-picture"
@@ -15,15 +15,16 @@
         </figure>
       </div>
       <div class="column">
-        <p class="has-text-left is-size-3-mobile" data-test="market-name">
+        <p class="has-text-left is-size-5-mobile" data-test="market-name">
           {{ sellerData.marketName }}
         </p>
-        <p class="has-text-left is-size-4-mobile" data-test="seller-tag">
+        <p class="has-text-left is-size-6-mobile" data-test="seller-tag">
           {{ sellerData.tags[0] }}{{ sellerData.tags[1] }}
         </p>
       </div>
       <div class="column is-one-fifth"></div>
     </div>
+    <hr />
     <div class="columns mt-2 mx-2 is-mobile">
       <div class="column is-three-fifths">
         <h4 class="has-text-left is-size-3-mobile" data-test="product-name">
@@ -61,6 +62,7 @@
       </div>
     </div>
     <section class="hero">
+      <hr />
       <h4
         class="ml-4 has-text-left is-size-4-mobile"
         data-test="product-description-title"
@@ -80,6 +82,7 @@
         />
       </figure>
     </section>
+    <hr />
     <div class="columns mt-2 mb-6 mx-2 is-mobile">
       <div class="column is-three-fifths">
         <h4 class="has-text-left is-size-4-mobile" data-test="review-title">
@@ -120,6 +123,7 @@
       </div>
     </div>
   </div>
+  <hr />
   <div class="navbar is-fixed-bottom">
     <button
       v-if="sellerData.isDiscount == true"
@@ -143,7 +147,7 @@ export default {
     return {
       sellerData: {
         productImg: productImage,
-        profilePic: 'https://picsum.photos/200/300',
+        profilePic: 'https://picsum.photos/200',
         marketName: '대한양복',
         tags: ['#남성', '#수트'],
         productName: '핏이 좋은 수트',
@@ -152,7 +156,7 @@ export default {
         discountRate: 10,
         productDetail: {
           description: '체형에 관계없이 누구에게나 맞는 수트!',
-          image: 'https://picsum.photos/200/300',
+          image: 'https://source.unsplash.com/random',
         },
       },
       customerReviewData: [
@@ -161,7 +165,7 @@ export default {
           timeStamp: '',
           title: '만족해요',
           description: '핏이 아주 잘 맞습니다. 대만족!',
-          image: 'https://picsum.photos/200/300',
+          image: 'https://picsum.photos/200',
         },
         {
           customerName: 'ironman',
