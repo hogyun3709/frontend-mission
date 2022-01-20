@@ -1,5 +1,5 @@
 <template>
-  <div>This is Header</div>
+  <div data-test="header">Test Shopping Mall</div>
 </template>
 
 <script>
