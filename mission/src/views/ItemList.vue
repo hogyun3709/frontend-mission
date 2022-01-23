@@ -1,5 +1,5 @@
 <template>
-  <div class="container mb-5 pb-5">
+  <div class="container mb-5 pb-5" data-test="item-list-page">
     <Item
       v-for="item in items"
       :item="item"
