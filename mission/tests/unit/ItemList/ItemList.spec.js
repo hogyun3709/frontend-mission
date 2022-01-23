@@ -12,7 +12,7 @@ describe('ItemListPage', () => {
   })
 
   it('renders ItemListPage', () => {
-    expect(wrapper.find('#item-list-page').exists()).toBe(true);
+    expect(wrapper.find('div[data-test="item-list-page"]').exists()).toBe(true);
   });
 
   it('props로 건내줄 item data가 없으면, Item 컴포넌트를 렌더링 하지 않음을 테스트 합니다.', async () => {
