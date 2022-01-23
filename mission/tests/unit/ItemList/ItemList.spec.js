@@ -25,6 +25,7 @@ describe('ItemListPage', () => {
 
   it('props(data)가 1개 이상 있다면, 컴포넌트도 1개 이상 렌더링함을 테스트 합니다.', async () => {
     const items = [{ id: 1 }, { id: 2 }]
+    /* Cannot read property 'toLocaleString' of undefined */
     await wrapper.setData({
       items,
     })
@@ -35,6 +36,8 @@ describe('ItemListPage', () => {
 
   it('렌더링 된 item 컴포넌트가 없다면(0개), 실패함을 테스트 합니다.', async () => {
     const items = [{ id: 1 }]
+    /* Cannot read property 'toLocaleString' of undefined */
+
     await wrapper.setData({
       items,
     })
