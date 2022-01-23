@@ -1,17 +1,20 @@
 <template>
   <div class="has-text-left">
-    <img :src="item.img" />
+    <img data-test="item-img" :src="item.img" />
     <div class="has-text-weight-bold">
       <span
         v-show="item.isDiscount"
         :class="{ 'has-text-danger': item.isDiscount }"
+        data-test="discount-rate"
       >
         {{ discountRate }}
       </span>
-      {{ finalPrice }}
+      <span data-test="final-price">{{ finalPrice }}</span>
     </div>
-    <h4>{{ item.title }}</h4>
-    <div class="is-size-7">{{ item.discription }}</div>
+    <h4 data-test="item-title">{{ item.title }}</h4>
+    <div data-test="item-discription" class="is-size-7">
+      {{ item.discription }}
+    </div>
   </div>
 </template>
 
