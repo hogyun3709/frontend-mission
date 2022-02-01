@@ -139,14 +139,12 @@
 </template>
 
 <script>
-import productImage from '@/assets/product-1.png';
-
 export default {
   name: 'ItemInfoPage',
   data() {
     return {
       sellerData: {
-        productImg: productImage,
+        productImg: 'https://picsum.photos/200',
         profilePic: 'https://picsum.photos/200',
         marketName: '대한양복',
         tags: ['#남성', '#수트'],
