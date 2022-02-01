@@ -2,7 +2,13 @@
   <div class="container mb-5 pb-5" data-test="item-list-page">
     <Item
       v-for="item in items"
-      :item="item"
+      :id="item.id"
+      :img="item.img"
+      :title="item.title"
+      :isDiscount="item.isDiscount"
+      :discountRate="item.discountRate"
+      :originalPrice="item.originalPrice"
+      :discription="item.discription"
       :key="item.id"
       class="item mx-3 my-2"
     />
