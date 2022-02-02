@@ -17,6 +17,9 @@
 
 <script>
 import Item from '@/components/ItemList/Item.vue';
+import Repository from '@/repositories/RepositoryFactory';
+
+const ItemRepository = Repository.get('item');
 
 export default {
   name: 'ItemListPage',
@@ -25,63 +28,19 @@ export default {
   },
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          img: 'https://picsum.photos/200',
-          title: 'Item 1',
-          isDiscount: true,
-          discount_rate: 10,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 2,
-          img: 'https://picsum.photos/200',
-          title: 'Item 2',
-          isDiscount: false,
-          discount_rate: 0,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 3,
-          img: 'https://picsum.photos/200',
-          title: 'Item 3',
-          isDiscount: false,
-          discount_rate: 0,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 4,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discount_rate: 0,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 5,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discount_rate: 0,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 6,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discount_rate: 0,
-          original_price: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-      ],
+      items: [],
     };
+  },
+  created() {
+    this.getItem();
+  },
+  methods: {
+    async getItem() {
+      const { data } = await ItemRepository.get();
+      console.log(`Hello, ${data}`);
+
+      this.items = data;
+    },
   },
 };
 </script>
