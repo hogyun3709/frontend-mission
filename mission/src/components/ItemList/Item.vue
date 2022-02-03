@@ -36,31 +36,6 @@ export default {
         };
       },
     },
-    // id: {
-    //   type: String,
-    //   default: '',
-    // },
-    // img: {
-    //   type: String,
-    //   default:
-    //     'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-1.png',
-    // },
-    // title: {
-    //   type: String,
-    //   default: '',
-    // },
-    // price: {
-    //   type: Number,
-    //   default: 0,
-    // },
-    // original_price: {
-    //   type: Number,
-    //   default: 0,
-    // },
-    // description: {
-    //   type: String,
-    //   default: '',
-    // },
   },
   computed: {
     priceWithComma() {

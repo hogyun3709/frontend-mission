@@ -1,19 +1,7 @@
 <template>
   <div class="container mb-5 pb-5" data-test="item-list-page">
-    <!-- <Item
-      v-for="item in items"
-      :description="item.description"
-      :img="item.image"
-      :title="item.name"
-      :original_price="item.original_price"
-      :price="item.price"
-      :id="item.product_no"
-      :key="item.product_no"
-      class="item mx-3 my-2"
-    /> -->
     <Item v-for="item in items" :key="item.id" :product="item" />
   </div>
-  {{ items }}
 </template>
 
 <script>
