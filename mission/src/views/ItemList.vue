@@ -1,18 +1,19 @@
 <template>
   <div class="container mb-5 pb-5" data-test="item-list-page">
-    <Item
+    <!-- <Item
       v-for="item in items"
-      :id="item.id"
-      :img="item.img"
-      :title="item.title"
-      :isDiscount="item.isDiscount"
-      :discount_rate="item.discount_rate"
+      :description="item.description"
+      :img="item.image"
+      :title="item.name"
       :original_price="item.original_price"
-      :discription="item.discription"
-      :key="item.id"
+      :price="item.price"
+      :id="item.product_no"
+      :key="item.product_no"
       class="item mx-3 my-2"
-    />
+    /> -->
+    <Item v-for="item in items" :key="item.id" :product="item" />
   </div>
+  {{ items }}
 </template>
 
 <script>
@@ -31,16 +32,15 @@ export default {
       items: [],
     };
   },
-  created() {
-    this.getItem();
-  },
   methods: {
     async getItem() {
       const { data } = await ItemRepository.get();
-      console.log(`Hello, ${data}`);
-
       this.items = data;
+      console.log(this.items);
     },
+  },
+  created() {
+    this.getItem();
   },
 };
 </script>

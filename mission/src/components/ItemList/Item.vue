@@ -1,19 +1,19 @@
 <template>
   <div class="has-text-left">
-    <img data-test="item-img" :src="img" />
+    <img data-test="item-img" :src="product[0].image" />
     <div class="has-text-weight-bold">
       <span
-        v-show="isDiscount"
-        :class="{ 'has-text-danger': isDiscount }"
+        v-if="isDiscounted"
+        :class="{ 'has-text-danger': isDiscounted }"
         data-test="discount-rate"
       >
-        {{ discountRate }}
+        {{ displayDiscountRate }}
       </span>
-      <span data-test="final-price">{{ finalPrice }}</span>
+      <span data-test="final-price">{{ priceWithComma }}</span>
     </div>
-    <h4 data-test="item-title">{{ title }}</h4>
+    <h4 data-test="item-title">{{ product[0].name }}</h4>
     <div data-test="item-discription" class="is-size-7">
-      {{ discription }}
+      {{ product[0].description }}
     </div>
   </div>
 </template>
@@ -22,54 +22,63 @@
 export default {
   name: 'ItemListItem',
   props: {
-    id: {
-      type: Number,
-      default: 1,
-      required: true,
+    product: {
+      type: Object,
+      default() {
+        return {
+          product_no: '',
+          name: '',
+          description: '',
+          price: 0,
+          original_price: 0,
+          image:
+            'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-1.png',
+        };
+      },
     },
-    img: {
-      type: String,
-      default: 'https://picsum.photos/200',
-      required: true,
-    },
-    title: {
-      type: String,
-      default: '',
-      required: true,
-    },
-    isDiscount: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-    discount_rate: {
-      type: Number,
-      default: null,
-      required: true,
-    },
-    original_price: {
-      type: Number,
-      default: 0,
-      required: true,
-    },
-    discription: {
-      type: String,
-      default: '',
-      required: true,
-    },
+    // id: {
+    //   type: String,
+    //   default: '',
+    // },
+    // img: {
+    //   type: String,
+    //   default:
+    //     'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-1.png',
+    // },
+    // title: {
+    //   type: String,
+    //   default: '',
+    // },
+    // price: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // original_price: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // description: {
+    //   type: String,
+    //   default: '',
+    // },
   },
   computed: {
-    finalPrice() {
-      const price = this.original_price;
-      const rate = this.discount_rate;
-      const discount = this.isDiscount;
-      const discountedPrice = price - price * (rate / 100);
-      return discount
-        ? `${discountedPrice.toLocaleString()}원`
-        : `${price.toLocaleString()}원`;
+    priceWithComma() {
+      const { price } = this.product[0];
+      return `${price.toLocaleString()}원`;
     },
-    discountRate() {
-      return `${this.discount_rate}%`;
+    isDiscounted() {
+      const originalPrice = this.product[0].original_price;
+      return originalPrice !== 0;
+    },
+    displayDiscountRate() {
+      const originalPrice = this.product[0].original_price;
+      const { price } = this.product[0];
+
+      const dividend = originalPrice - price;
+      const divisor = originalPrice;
+      const rate = (dividend / divisor) * 100;
+      return `${rate.toFixed(0)}%`;
     },
   },
 };
