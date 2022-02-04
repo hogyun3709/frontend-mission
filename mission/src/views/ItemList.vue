@@ -1,12 +1,16 @@
 <template>
+  <Header />
   <div class="container mb-5 pb-5" data-test="item-list-page">
     <router-link :to="{ path: `/item/${items.items[0].product_no}` }">
       <Item v-for="item in items" :key="item.id" :product="item" />
     </router-link>
   </div>
+  <BottomNav />
 </template>
 
 <script>
+import Header from '@/views/Header.vue';
+import BottomNav from '@/views/BottomNav.vue';
 import Item from '@/components/ItemList/Item.vue';
 import Repository from '@/repositories/RepositoryFactory';
 
@@ -16,6 +20,8 @@ export default {
   name: 'ItemListPage',
   components: {
     Item,
+    Header,
+    BottomNav,
   },
   data() {
     return {
