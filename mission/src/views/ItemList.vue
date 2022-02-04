@@ -1,6 +1,8 @@
 <template>
   <div class="container mb-5 pb-5" data-test="item-list-page">
-    <Item v-for="item in items" :key="item.id" :product="item" />
+    <router-link :to="{ path: `/item/${items.items[0].product_no}` }">
+      <Item v-for="item in items" :key="item.id" :product="item" />
+    </router-link>
   </div>
 </template>
 
@@ -21,14 +23,14 @@ export default {
     };
   },
   methods: {
-    async getItem() {
+    async getItemLists() {
       const { data } = await ItemRepository.get();
       this.items = data;
       console.log(this.items);
     },
   },
   created() {
-    this.getItem();
+    this.getItemLists();
   },
 };
 </script>

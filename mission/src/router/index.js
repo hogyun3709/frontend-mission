@@ -7,6 +7,12 @@ const routes = [
     name: 'Home',
     component: ItemListPage,
   },
+  {
+    path: '/item/:id',
+    name: 'item',
+    component: () => import('@/views/ItemInfo.vue'),
+    props: true,
+  },
   // {
   //   path: '/about',
   //   name: 'About',
