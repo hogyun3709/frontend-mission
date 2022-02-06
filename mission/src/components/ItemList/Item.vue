@@ -1,20 +1,22 @@
 <template>
-  <div class="has-text-left">
-    <img data-test="item-img" :src="product[0].image" />
-    <div class="has-text-weight-bold">
-      <span
-        v-if="isDiscounted"
-        :class="{ 'has-text-danger': isDiscounted }"
-        data-test="discount-rate"
-      >
-        {{ displayDiscountRate }}
-      </span>
-      <span data-test="final-price">{{ priceWithComma }}</span>
-    </div>
-    <h4 data-test="item-title">{{ product[0].name }}</h4>
-    <div data-test="item-discription" class="is-size-7">
-      {{ product[0].description }}
-    </div>
+  <div class="has-text-left" v-for="item in product" :key="item.product_no">
+    <router-link :to="{ name: 'item', params: { id: item.product_no } }">
+      <img data-test="item-img" :src="item.image" />
+      <div class="has-text-weight-bold">
+        <span
+          v-if="isDiscounted"
+          :class="{ 'has-text-danger': isDiscounted }"
+          data-test="discount-rate"
+        >
+          {{ displayDiscountRate }}
+        </span>
+        <span data-test="final-price">{{ priceWithComma }}</span>
+      </div>
+      <h4 data-test="item-title">{{ item.name }}</h4>
+      <div data-test="item-discription" class="is-size-7">
+        {{ item.description }}
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -36,6 +38,11 @@ export default {
         };
       },
     },
+  },
+  data() {
+    return {
+      item: {},
+    };
   },
   computed: {
     priceWithComma() {
