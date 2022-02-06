@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <!-- <figure class="image is-square mobile">
-      <img data-test="product-image" :src="apiData.item.image" />
-    </figure> -->
+    <figure class="image is-square mobile">
+      <img :src="apiData.item.image" />
+    </figure>
     <img :src="apiData.item.image" />
     <div class="columns mt-1 mx-1 is-mobile">
       <div class="column is-one-fifth">
@@ -28,7 +28,6 @@
           #{{ tag }}
         </div>
       </div>
-      <div class="column is-one-fifth"></div>
     </div>
     <hr />
     <div class="columns mt-2 mx-2 is-mobile">
@@ -55,14 +54,8 @@
           </span>
         </div>
       </div>
-      <div class="column is-one-fifth">
-        <button
-          class="mt-5 mb-5 button is-primary"
-          @click="setDiscount"
-          data-test="apply-discount"
-        >
-          {{ sellerData.discountRate }}% 할인 적용
-        </button>
+      <div class="column is-offset-two-fifth">
+        <button></button>
       </div>
     </div>
     <section class="hero">
@@ -123,14 +116,14 @@
   <hr />
   <div class="navbar is-fixed-bottom">
     <button
-      v-if="sellerData.isDiscount == true"
+      v-if="isDiscounted"
       class="button mt-1"
       data-test="purchase-button-discount"
     >
-      {{ discountPrice }}원 구매
+      {{ priceWithComma }}구매
     </button>
     <button v-else class="button mt-1" data-test="purchase-button-non-discount">
-      {{ noDiscountPrice }}원 구매
+      {{ originalPriceWithComma }}구매
     </button>
   </div>
 </template>
@@ -144,56 +137,17 @@ export default {
   name: 'ItemInfoPage',
   data() {
     return {
-      sellerData: {
-        productImg: 'https://picsum.photos/200',
-        profilePic: 'https://picsum.photos/200',
-        marketName: '대한양복',
-        tags: ['#남성', '#수트'],
-        productName: '핏이 좋은 수트',
-        productPrice: 200000,
-        isDiscount: true,
-        discountRate: 10,
-        productDetail: {
-          description: '체형에 관계없이 누구에게나 맞는 수트!',
-          image: 'https://source.unsplash.com/random',
-        },
-      },
-      customerReviewData: [
-        {
-          customerName: 'spiderman',
-          timeStamp: '',
-          title: '만족해요',
-          description: '핏이 아주 잘 맞습니다. 대만족!',
-          image: 'https://picsum.photos/200',
-        },
-        {
-          customerName: 'ironman',
-          timeStamp: '',
-        },
-      ],
       apiData: {},
     };
   },
   created() {
     this.getItemInfos();
   },
-  mounted() {
-    /* Format Review Data */
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    this.customerReviewData.timeStamp = `${year}. ${month}. ${day}`;
-    /* encrypt customer name on review - 추후구현 */
-    // this.customerReviewData.customerName.replace(/\/gi, "*");
-  },
   methods: {
-    setDiscount() {
-      this.sellerData.isDiscount = !this.sellerData.isDiscount;
-    },
-    async getItemInfos(id) {
-      const { data } = await ItemRepository.getItem(id);
+    async getItemInfos() {
+      const { data } = await ItemRepository.getItem();
       this.apiData = data;
+      console.log(this.apiData);
     },
   },
   computed: {
