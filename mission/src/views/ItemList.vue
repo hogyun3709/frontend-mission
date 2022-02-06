@@ -1,11 +1,9 @@
 <template>
-  <Header />
   <div class="container mb-5 pb-5" data-test="item-list-page">
-    <router-link :to="{ path: `/item/${items.items[0].product_no}` }">
-      <Item v-for="item in items" :key="item.id" :product="item" />
-    </router-link>
+    <Header />
+    <Item v-for="item in items" :key="item.id" :product="item" />
+    <BottomNav />
   </div>
-  <BottomNav />
 </template>
 
 <script>
@@ -25,7 +23,7 @@ export default {
   },
   data() {
     return {
-      items: [],
+      items: {},
     };
   },
   methods: {
