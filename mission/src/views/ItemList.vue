@@ -1,81 +1,40 @@
 <template>
   <div class="container mb-5 pb-5" data-test="item-list-page">
-    <Item
-      v-for="item in items"
-      :item="item"
-      :key="item.id"
-      class="item mx-3 my-2"
-    />
+    <Header />
+    <Item v-for="item in items" :key="item.id" :product="item" />
+    <BottomNav />
   </div>
 </template>
 
 <script>
+import Header from '@/views/Header.vue';
+import BottomNav from '@/views/BottomNav.vue';
 import Item from '@/components/ItemList/Item.vue';
+import Repository from '@/repositories/RepositoryFactory';
+
+const ItemRepository = Repository.get('item');
 
 export default {
   name: 'ItemListPage',
   components: {
     Item,
+    Header,
+    BottomNav,
   },
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          img: 'https://picsum.photos/200',
-          title: 'Item 1',
-          isDiscount: true,
-          discountRate: 10,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 2,
-          img: 'https://picsum.photos/200',
-          title: 'Item 2',
-          isDiscount: false,
-          discountRate: 0,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 3,
-          img: 'https://picsum.photos/200',
-          title: 'Item 3',
-          isDiscount: false,
-          discountRate: 0,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 4,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discountRate: 0,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 5,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discountRate: 0,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-        {
-          id: 6,
-          img: 'https://picsum.photos/200',
-          title: 'Item 4',
-          isDiscount: false,
-          discountRate: 0,
-          originalPrice: 200000,
-          discription: '제품에 대한 설명입니다',
-        },
-      ],
+      items: {},
     };
+  },
+  methods: {
+    async getItemLists() {
+      const { data } = await ItemRepository.get();
+      this.items = data;
+      console.log(this.items);
+    },
+  },
+  created() {
+    this.getItemLists();
   },
 };
 </script>

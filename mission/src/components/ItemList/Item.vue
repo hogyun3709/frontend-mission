@@ -1,20 +1,22 @@
 <template>
-  <div class="has-text-left">
-    <img data-test="item-img" :src="item.img" />
-    <div class="has-text-weight-bold">
-      <span
-        v-show="item.isDiscount"
-        :class="{ 'has-text-danger': item.isDiscount }"
-        data-test="discount-rate"
-      >
-        {{ discountRate }}
-      </span>
-      <span data-test="final-price">{{ finalPrice }}</span>
-    </div>
-    <h4 data-test="item-title">{{ item.title }}</h4>
-    <div data-test="item-discription" class="is-size-7">
-      {{ item.discription }}
-    </div>
+  <div class="has-text-left" v-for="item in product" :key="item.product_no">
+    <router-link :to="{ name: 'item', params: { id: item.product_no } }">
+      <img data-test="item-img" :src="item.image" />
+      <div class="has-text-weight-bold">
+        <span
+          v-if="isDiscounted"
+          :class="{ 'has-text-danger': isDiscounted }"
+          data-test="discount-rate"
+        >
+          {{ displayDiscountRate }}
+        </span>
+        <span data-test="final-price">{{ priceWithComma }}</span>
+      </div>
+      <h4 data-test="item-title">{{ item.name }}</h4>
+      <div data-test="item-discription" class="is-size-7">
+        {{ item.description }}
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -22,20 +24,43 @@
 export default {
   name: 'ItemListItem',
   props: {
-    item: Object,
+    product: {
+      type: Object,
+      default() {
+        return {
+          product_no: '',
+          name: '',
+          description: '',
+          price: 0,
+          original_price: 0,
+          image:
+            'https://projectlion-vue.s3.ap-northeast-2.amazonaws.com/items/suit-1.png',
+        };
+      },
+    },
+  },
+  data() {
+    return {
+      item: {},
+    };
   },
   computed: {
-    finalPrice() {
-      const price = this.item.originalPrice;
-      const rate = this.item.discountRate;
-      const discount = this.item.isDiscount;
-      const discountedPrice = price - price * (rate / 100);
-      return discount
-        ? `${discountedPrice.toLocaleString()}원`
-        : `${price.toLocaleString()}원`;
+    priceWithComma() {
+      const { price } = this.product[0];
+      return `${price.toLocaleString()}원`;
     },
-    discountRate() {
-      return `${this.item.discountRate}%`;
+    isDiscounted() {
+      const originalPrice = this.product[0].original_price;
+      return originalPrice !== 0;
+    },
+    displayDiscountRate() {
+      const originalPrice = this.product[0].original_price;
+      const { price } = this.product[0];
+
+      const dividend = originalPrice - price;
+      const divisor = originalPrice;
+      const rate = (dividend / divisor) * 100;
+      return `${rate.toFixed(0)}%`;
     },
   },
 };
