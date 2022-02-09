@@ -1,4 +1,4 @@
-import BaseHttpClient from '@/api/BaseClient';
+import BaseHttpClient from '@/api/BaseHttpClient';
 
 export default class ItemApi {
 	constructor(clientInstance) {
@@ -12,7 +12,7 @@ export default class ItemApi {
 		return result;
 	}
 
-	async getItemInfo() {
+	async getItemInfo(itemNo) {
 		const result = await this.clientInstance.get(`/item/${itemNo}`);
 
 		return result

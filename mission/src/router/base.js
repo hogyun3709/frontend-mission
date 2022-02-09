@@ -1,5 +1,5 @@
 import ItemListHeader from '@/components/ItemList/Header.vue';
-import ItemListPage from '@/componets/ItemList/Item.vue';
+import ItemListPage from '@/views/ItemList.vue';
 import ItemListBottomNav from '@/components/ItemList/BottomNav.vue';
 
 export default [
