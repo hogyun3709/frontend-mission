@@ -1,31 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ItemListPage from '@/views/ItemList.vue';
+import itemRoute from '@/router/item';
+import baseRoute from '@/router/base';
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: ItemListPage,
-  },
-  {
-    path: '/item/:id',
-    name: 'item',
-    component: () => import('@/views/ItemInfo.vue'),
-    props: true,
-  },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  // },
-];
+/* 추후 라우팅의 확장성을 고려 */
+const finalRoute = [].concat(baseRoute, itemRoute);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes: finalRoute,
 });
 
 export default router;
