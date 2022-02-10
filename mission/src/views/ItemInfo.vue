@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-    <figure class="image is-square mobile">
-      <img :src="apiData.item.image" />
-    </figure>
-    <img :src="apiData.item.image" />
+    <img :src="item.image" />
     <div class="columns mt-1 mx-1 is-mobile">
       <div class="column is-one-fifth">
         <figure class="image is-square">
@@ -11,16 +8,16 @@
           <img
             class="is-rounded"
             data-test="profile-picture"
-            :src="apiData.item.seller.profile_image"
+            :src="item.seller.profile_image"
           />
         </figure>
       </div>
       <div class="column">
         <p class="has-text-left is-size-5-mobile" data-test="market-name">
-          {{ apiData.item.seller.name }}
+          {{ item.seller.name }}
         </p>
         <div
-          v-for="tag in apiData.item.seller.hash_tags"
+          v-for="tag in item.seller.hash_tags"
           :key="tag"
           class="has-text-left is-size-6-mobile"
           data-test="seller-tag"
@@ -33,7 +30,7 @@
     <div class="columns mt-2 mx-2 is-mobile">
       <div class="column is-three-fifths">
         <h4 class="has-text-left is-size-3-mobile" data-test="product-name">
-          {{ apiData.item.name }}
+          {{ item.name }}
         </h4>
         <div v-if="isDiscounted" class="has-text-left is-size-4-mobile">
           <span
@@ -43,14 +40,9 @@
             {{ displayDiscountRate }}
           </span>
           <span class="has-text-weight-bold" data-test="discount-price">
-            {{ priceWithComma }}
-          </span>
-          <span
-            class="is-size-5-mobile"
-            data-test="original-price"
-            :class="{ 'text-deco': isDiscounted }"
-          >
-            {{ originalPriceWithComma }}
+            {{
+              priceWithComma(isDiscounted() ? item.price : item.original_price)
+            }}
           </span>
         </div>
       </div>
@@ -67,110 +59,102 @@
         상품정보
       </h4>
       <p
-        v-html="apiData.item.description"
+        v-html="item.description"
         class="ml-4 has-text-left is-size-6-mobile has-text-weight-bold"
         data-test="product-detail-description"
       />
     </section>
     <hr />
-    <div class="columns mt-2 mb-6 mx-2 is-mobile">
-      <div class="column is-three-fifths">
-        <h4 class="has-text-left is-size-4-mobile" data-test="review-title">
-          리뷰
-        </h4>
-        <div class="has-text-left is-size-6-mobile">
-          <p>
-            <span class="has-text-weight-bold" data-test="review-customer-name">
-              {{ apiData.item.reviews[0].writer }}
-            </span>
+    <div id="reviews" v-for="review in item.reviews" :key="review.review_no">
+      <div class="columns mt-2 mb-6 mx-2 is-mobile">
+        <div class="column is-three-fifths">
+          <h4 class="has-text-left is-size-4-mobile" data-test="review-title">
+            리뷰
+          </h4>
+          <div class="has-text-left is-size-6-mobile">
+            <p>
+              <span
+                class="has-text-weight-bold"
+                data-test="review-customer-name"
+              >
+                {{ review.writer }}
+              </span>
+              <span
+                class="ml-1 is-size-7-mobile"
+                data-test="review-customer-timestamp"
+              >
+                {{ review.created }}
+              </span>
+            </p>
             <span
-              class="ml-1 is-size-7-mobile"
-              data-test="review-customer-timestamp"
+              class="has-text-weight-bold is-size-4-mobile"
+              data-test="review-content-title"
             >
-              {{ apiData.item.reviews[0].created }}
+              {{ review.title }}
             </span>
-          </p>
-          <span
-            class="has-text-weight-bold is-size-4-mobile"
-            data-test="review-content-title"
-          >
-            {{ apiData.item.reviews[0].title }}
-          </span>
+          </div>
+          <div class="has-text-left is-size-6-mobile">
+            <span data-test="review-content-description">
+              {{ review.content }}
+            </span>
+          </div>
         </div>
-        <div class="has-text-left is-size-6-mobile">
-          <span data-test="review-content-description">
-            {{ apiData.item.reviews[0].content }}
-          </span>
+        <div class="column is-two-fifth">
+          <figure class="image is-square mobile">
+            <img data-test="review-customer-image" :src="review.img" />
+          </figure>
         </div>
-      </div>
-      <div class="column is-two-fifth">
-        <figure class="image is-square mobile">
-          <img
-            data-test="review-customer-image"
-            :src="apiData.item.reviews[0].img"
-          />
-        </figure>
       </div>
     </div>
   </div>
   <hr />
   <div class="navbar is-fixed-bottom">
-    <button
-      v-if="isDiscounted"
-      class="button mt-1"
-      data-test="purchase-button-discount"
-    >
-      {{ priceWithComma }}구매
-    </button>
-    <button v-else class="button mt-1" data-test="purchase-button-non-discount">
-      {{ originalPriceWithComma }}구매
+    <button class="button mt-1" data-test="purchase-button-discount">
+      {{
+        priceWithComma(isDiscounted() ? item.price : item.original_price)
+      }}구매
     </button>
   </div>
 </template>
 
 <script>
-import Repository from '@/repositories/RepositoryFactory';
-
-const ItemRepository = Repository.get('item');
+import ItemApi from '@/api/Item/ItemApi';
+import ItemModel from '@/model/Item/ItemInfo';
 
 export default {
   name: 'ItemInfoPage',
   data() {
     return {
-      apiData: {},
+      item: ItemModel,
     };
   },
-  created() {
-    this.getItemInfos();
-  },
+
   methods: {
-    async getItemInfos() {
-      const { data } = await ItemRepository.getItem();
-      this.apiData = data;
-      console.log(this.apiData);
+    isDiscounted() {
+      return this.item.original_price !== 0;
+    },
+    priceWithComma(value) {
+      return `${value.toLocaleString()}원`;
+    },
+    isReviewImgExists(review) {
+      return Object.prototype.hasOwnProperty.call(review, 'img');
     },
   },
   computed: {
-    priceWithComma() {
-      const { price } = this.apiData.item;
-      return `${price.toLocaleString()}원`;
-    },
-    originalPriceWithComma() {
-      const originalPrice = this.apiData.item.original_price;
-      return `${originalPrice.toLocaleString()}원`;
-    },
-    isDiscounted() {
-      const originalPrice = this.apiData.item.original_price;
-      return originalPrice !== 0;
-    },
     displayDiscountRate() {
-      const originalPrice = this.apiData.item.original_price;
-      const { price } = this.apiData.item;
+      const originalPrice = this.item.original_price;
+      const { price } = this.item;
       const dividend = originalPrice - price;
       const divisor = originalPrice;
       const rate = (dividend / divisor) * 100;
       return `${rate.toFixed(0)}%`;
     },
+  },
+  async created() {
+    const apiClient = new ItemApi();
+    const response = await apiClient.getItemInfo(this.product_no);
+    const originalItem = this.item;
+    this.item = Object.assign(originalItem, response.data.item);
   },
 };
 </script>

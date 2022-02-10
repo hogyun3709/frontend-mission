@@ -40,7 +40,6 @@ export default {
     const apiClient = new ItemApi();
     const response = await apiClient.getItemList();
     this.items = response.data.items;
-    console.log(this.items);
   },
 };
 </script>

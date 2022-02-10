@@ -1,18 +1,22 @@
 <template>
-  <img data-test="item-img" :src="img" />
-  <div class="has-text-weight-bold">
-    <span
-      v-if="isDiscounted"
-      :class="{ 'has-text-danger': isDiscounted }"
-      data-test="discount-rate"
-    >
-      {{ displayDiscountRate }}
-    </span>
-    <span data-test="final-price">{{ priceWithComma }}</span>
-  </div>
-  <h4 data-test="item-title">{{ name }}</h4>
-  <div data-test="item-discription" class="is-size-7">
-    {{ description }}
+  <div class="mx-5">
+    <figure>
+      <img class="image is-128x128" data-test="item-img" :src="img" />
+    </figure>
+    <div class="has-text-weight-bold">
+      <span
+        v-if="isDiscounted"
+        :class="{ 'has-text-danger': isDiscounted }"
+        data-test="discount-rate"
+      >
+        {{ displayDiscountRate }}
+      </span>
+      <span data-test="final-price">{{ priceWithComma }}</span>
+    </div>
+    <h4 data-test="item-title">{{ name }}</h4>
+    <div data-test="item-discription" class="is-size-7">
+      {{ description }}
+    </div>
   </div>
 </template>
 
