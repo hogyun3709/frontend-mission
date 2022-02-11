@@ -2,13 +2,15 @@
   <div data-test="bottom-navigation">
     <nav class="navbar is-fixed-bottom is-justify-content-space-evenly">
       <div class="my-3">
-        <button
-          class="button is-white is-size-7 is-flex-direction-column"
-          data-test="home"
-        >
-          <i class="fas fa-home"></i>
-          <span>홈</span>
-        </button>
+        <router-link to="/">
+          <button
+            class="button is-white is-size-7 is-flex-direction-column"
+            data-test="home"
+          >
+            <i class="fas fa-home"></i>
+            <span>홈</span>
+          </button>
+        </router-link>
         <button
           class="button is-white is-size-7 is-flex-direction-column"
           data-test="market-liked"
@@ -16,13 +18,15 @@
           <i class="fas fa-heart"></i>
           <span>찜 목록</span>
         </button>
-        <button
-          class="button is-white is-size-7 is-flex-direction-column"
-          data-test="cart"
-        >
-          <i class="fas fa-shopping-cart"></i>
-          <span>장바구니</span>
-        </button>
+        <router-link to="/cart">
+          <button
+            class="button is-white is-size-7 is-flex-direction-column"
+            data-test="cart"
+          >
+            <i class="fas fa-shopping-cart"></i>
+            <span>장바구니</span>
+          </button>
+        </router-link>
         <button
           class="button is-white is-size-7 is-flex-direction-column"
           data-test="my-page"

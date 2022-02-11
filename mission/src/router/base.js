@@ -2,6 +2,8 @@ import ItemListHeader from '@/components/ItemList/Header.vue';
 import ItemListPage from '@/views/ItemList.vue';
 import ItemListBottomNav from '@/components/ItemList/BottomNav.vue';
 
+import CartPage from '@/views/Cart.vue'
+
 export default [
 	{
 		path: '/',
@@ -21,4 +23,13 @@ export default [
 			nav: ItemListBottomNav,
 		},
 	},
+	{
+		path: '/cart',
+		name: 'Cart',
+		components: {
+			header: ItemListHeader,
+			main: CartPage,
+			nav: ItemListBottomNav,
+		}
+	}
 ];
