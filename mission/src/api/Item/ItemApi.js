@@ -1,22 +1,22 @@
 import BaseHttpClient from '@/api/BaseHttpClient';
 
 export default class ItemApi {
-	constructor(clientInstance) {
-		/* || new BaseClient().instance의 이유? = Base http client library가 변경되었을시 고려?*/
-		this.clientInstance = clientInstance || new BaseHttpClient().instance;
-	}
+  constructor(clientInstance) {
+    /* || new BaseClient().instance의 이유? = Base http client library가 변경되었을시 고려? */
+    this.clientInstance = clientInstance || new BaseHttpClient().instance;
+  }
 
-	async getItemList() {
-		const result = await this.clientInstance.get('/item');
-		/* return 전에 데이터 처리가 가능 */
-		return result;
-	}
+  async getItemList() {
+    const result = await this.clientInstance.get('/item');
+    /* return 전에 데이터 처리가 가능 */
+    return result;
+  }
 
-	async getItemInfo(itemNo) {
-		const result = await this.clientInstance.get(`/item/${itemNo}`);
+  async getItemInfo(itemNo) {
+    const result = await this.clientInstance.get(`/item/${itemNo}`);
 
-		return result
-	}
+    return result;
+  }
 }
 
 /**
