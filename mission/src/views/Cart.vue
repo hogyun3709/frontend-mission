@@ -10,6 +10,9 @@
       :original_price="item.original_price"
       :key="item.product_no"
     ></Item>
+    <router-link to="/order">
+      <button class="button is-primary is-small">주문하기</button>
+    </router-link>
   </div>
 </template>
 
