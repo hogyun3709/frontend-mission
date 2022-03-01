@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import BottomNav from '@/views/BottomNav.vue';
+import BottomNav from '@/components/ItemList/BottomNav.vue';
 
 describe('BottomNav', () => {
   let wrapper;

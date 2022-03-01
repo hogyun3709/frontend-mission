@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import CartApi from '@/api/Cart/CartApi.js';
+import CartApi from '@/api/Cart/CartApi';
 
 export default createStore({
   state: {

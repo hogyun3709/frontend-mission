@@ -19,7 +19,7 @@
 
 <script>
 import Item from '@/components/ItemList/Item.vue';
-import ItemApi from '@/api/Item/ItemApi.js';
+import ItemApi from '@/api/Item/ItemApi';
 
 export default {
   name: 'ItemListPage',

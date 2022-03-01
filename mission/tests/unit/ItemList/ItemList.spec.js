@@ -32,14 +32,4 @@ describe('ItemListPage', () => {
 
     expect(components.length).toBeGreaterThanOrEqual(1);
   });
-
-  it('렌더링 된 item 컴포넌트가 없다면(0개), 실패함을 테스트 합니다.', async () => {
-    const items = [{ id: 1 }];
-    /* Cannot read property 'toLocaleString' of undefined */
-
-    await wrapper.setData({
-      items,
-    });
-    expect(wrapper.getComponent(Item)).toThrowError;
-  });
 });
